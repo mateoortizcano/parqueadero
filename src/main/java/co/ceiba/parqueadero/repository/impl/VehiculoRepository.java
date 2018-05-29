@@ -76,9 +76,8 @@ public class VehiculoRepository implements IVehiculoRepository{
 	}
 	
 	public VehiculoEntity getVehiculo(String placa) {
-		
-		VehiculoEntity vehiculoEntity = vehiculoJPA.findByPlaca(placa);
-		return vehiculoEntity;
+
+		return vehiculoJPA.findByPlaca(placa);
 	}
 	
 	
