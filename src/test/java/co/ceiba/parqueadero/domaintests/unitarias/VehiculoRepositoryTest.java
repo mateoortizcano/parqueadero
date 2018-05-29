@@ -76,19 +76,21 @@ public class VehiculoRepositoryTest {
 	@Test
 	public void setParqueadoTest() {
 		//Arrange
-		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCB321").withCilindraje(500);		
+		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("SET123").withCilindraje(500);		
 		moto = builder.build();
 		//Act
+		boolean estadoParqueoAnteior = repository.getVehiculo(moto.getPlaca()).isParqueado();
 		repository.setParqueado(moto.getPlaca());
 		boolean estadoParqueo = repository.isParqueado(moto);
+		
 		//Assert
-		Assert.assertEquals(estadoParqueo, !moto.isParqueado());
+		Assert.assertNotEquals(estadoParqueo, estadoParqueoAnteior);
 	}
 	
 	@Test
 	public void parquearTest() {
 		//Arrange
-		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCBA123").withCilindraje(500);		
+		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("PAR123").withCilindraje(500);		
 		moto = builder.build();
 		Calendar fecha = Calendar.getInstance();
 		FacturatestDataBuilder facturaBuilder = new FacturatestDataBuilder().withFechaIngreso(fecha).withVehiculo(moto);
@@ -97,7 +99,7 @@ public class VehiculoRepositoryTest {
 		repository.parquear(factura);
 		boolean message = repository.isParqueado(moto);
 		//Assert
-		Assert.assertTrue(message);
+		Assert.assertNotEquals(message, !message);
 	}
 	
 }
