@@ -5,43 +5,48 @@ import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.ceiba.parqueadero.converter.FacturaConverter;
 import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.domain.ValidacionCantidadVehiculos;
 import co.ceiba.parqueadero.domain.ValidacionIngresoVehiculo;
 import co.ceiba.parqueadero.domain.Vehiculo;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
 import co.ceiba.parqueadero.repository.IVehiculoRepository;
+import co.ceiba.parqueadero.util.Constantes;
 
 @Service
 public class VigilanteService {
 	
 	@Autowired
 	private IVehiculoRepository vehiculoRepository;
-	
-	private static final String NO_HAY_CELDAS_DISPONIBLES = "No hay celdas disponibles para parqueo";
-	private static final String VEHICULO_NO_PUEDE_INGRESAR = "El vehículo no puede ingresar porque no se ecuentra"
-			+ "dentro de un día hábil para hacerlo.";
-	private static final String OPERACION_EXITOSA = "Operación Exitosa";
 		
-	public String ingresarVehiculo(Vehiculo vehiculoMotor) throws Exception {
-		//validar que no se encuentre parqueado
-		int tipoVehiculo = vehiculoMotor.getTipo();
-		Calendar fecha = Calendar.getInstance();
-		int nroVehiculosParqueados = vehiculoRepository.getNumeroParqueados(vehiculoMotor.getTipo());
-		System.out.println(nroVehiculosParqueados);
-		ValidacionIngresoVehiculo ingresoVehiculo = new ValidacionIngresoVehiculo(vehiculoMotor, fecha);
-		ValidacionCantidadVehiculos validacionCantidadVehiculos = new ValidacionCantidadVehiculos(tipoVehiculo, 
-				nroVehiculosParqueados);
+	public String ingresarVehiculo(Vehiculo vehiculo, Calendar fecha) throws ParqueoException {
 		
-		if(!ingresoVehiculo.validar())
-			throw new ParqueoException(VEHICULO_NO_PUEDE_INGRESAR);
-		if(!validacionCantidadVehiculos.validar())
-			throw new ParqueoException(NO_HAY_CELDAS_DISPONIBLES);
+		int nroVehiculosParqueados = vehiculoRepository.getNumeroParqueados(vehiculo.getTipo());
+				System.out.println(nroVehiculosParqueados);
+		validarPosibilidadParqueo(vehiculo, fecha, nroVehiculosParqueados);
+		
+		Factura factura = new Factura(vehiculo, fecha);
+		
+		vehiculoRepository.parquear(factura);
+		
+		return Constantes.OPERACION_EXITOSA;
+	}
 
-		Factura factura = new Factura(vehiculoMotor, fecha);
-		FacturaConverter converter = new FacturaConverter();
-		vehiculoRepository.parquear(converter.toEntity(factura));
-		return OPERACION_EXITOSA;
+	private void validarPosibilidadParqueo(Vehiculo vehiculo, Calendar fecha,
+			int nroVehiculosParqueados) throws ParqueoException {
+		
+		boolean isParqueado = vehiculoRepository.isParqueado(vehiculo);
+		
+		ValidacionIngresoVehiculo ingresoVehiculo = new ValidacionIngresoVehiculo(vehiculo, fecha);
+		
+		ValidacionCantidadVehiculos validacionCantidadVehiculos = new ValidacionCantidadVehiculos(
+				vehiculo.getTipo(), nroVehiculosParqueados);
+		
+		if(isParqueado)
+			throw new ParqueoException(Constantes.VEHICULO_YA_PARQUEADO);
+		if(!ingresoVehiculo.validar())
+			throw new ParqueoException(Constantes.VEHICULO_NO_PUEDE_INGRESAR);
+		if(!validacionCantidadVehiculos.validar())
+			throw new ParqueoException(Constantes.NO_HAY_CELDAS_DISPONIBLES);
 	}
 }

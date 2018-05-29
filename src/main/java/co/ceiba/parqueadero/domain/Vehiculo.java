@@ -1,12 +1,16 @@
 package co.ceiba.parqueadero.domain;
 
-public abstract class Vehiculo {
+public class Vehiculo {
 	
 	private String placa;
 	private boolean estadoParqueo;
 	private int tipo;
 	private int cilindraje;
 
+	public Vehiculo() {
+		super();
+	}
+	
 	public Vehiculo(String placa, int tipo) {
 		super();
 		this.placa = placa;

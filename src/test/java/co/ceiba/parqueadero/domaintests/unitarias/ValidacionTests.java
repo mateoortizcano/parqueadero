@@ -123,7 +123,6 @@ public class ValidacionTests {
 		//Arrange
 		fecha = Calendar.getInstance();
 		fecha.set(2018, 4, 29);
-		System.out.println(fecha.getTime());
 		CarroTestDataBuilder builder = new CarroTestDataBuilder();
 		builder.withPlaca("AAA333");		
 		carro = builder.build();

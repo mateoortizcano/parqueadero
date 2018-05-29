@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import co.ceiba.parqueadero.entity.VehiculoEntity;
 
+@Repository
 public interface IVehiculoJPA extends JpaRepository<VehiculoEntity, Serializable>{
 	/**
 	@Transactional
@@ -14,4 +16,6 @@ public interface IVehiculoJPA extends JpaRepository<VehiculoEntity, Serializable
 	int contarParqueados();**/
 	
 	List<VehiculoEntity> findByEstadoParqueoAndTipoVehiculo(boolean estadoParqueo, int tipoVehiculo);
+	
+	VehiculoEntity findByPlaca(String placa);
 }
