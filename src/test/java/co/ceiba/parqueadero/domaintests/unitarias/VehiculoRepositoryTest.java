@@ -16,7 +16,6 @@ import co.ceiba.parqueadero.repository.impl.VehiculoRepository;
 import co.ceiba.parqueadero.testdatabuilder.FacturatestDataBuilder;
 import co.ceiba.parqueadero.testdatabuilder.MotoTestDataBuilder;
 
-
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @Transactional
@@ -28,9 +27,8 @@ public class VehiculoRepositoryTest {
 	
 	@Test
 	public void isNoParqueadoTest() {
-		
 		//Arrange
-		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCBA123").withCilindraje(500);		
+		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCB123").withCilindraje(500);		
 		moto = builder.build();
 		//Act
 		boolean message = repository.isParqueado(moto);
@@ -42,7 +40,7 @@ public class VehiculoRepositoryTest {
 	public void isParqueadoTest() {
 		
 		//Arrange
-		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCB321").withCilindraje(500);		
+		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCBA123").withCilindraje(500);		
 		moto = builder.build();
 		//Act
 		boolean message = repository.isParqueado(moto);
