@@ -1,4 +1,6 @@
-package co.ceiba.parqueadero.domain;
+package co.ceiba.parqueadero.service;
+
+import co.ceiba.parqueadero.domain.TipoVehiculo;
 
 public class ValidacionCantidadVehiculos implements Validacion{
 	

@@ -12,6 +12,17 @@ public class FacturaConverter {
 		entity.setVehiculoEntity(converter.toEntity(factura.getVehiculo()));
 		entity.setFechaIngreso(factura.getFechaIngreso());
 		entity.setFechaSalida(factura.getFechaSalida());
+		entity.setPrecioTotalParqueo(factura.getPrecioTotalParqueo());
 		return entity;
+	}
+
+	public Factura toDomain(FacturaEntity facturaEntity) {
+		
+		VehiculoConverter vehiculoConverter = new VehiculoConverter();
+		Factura factura = new Factura(vehiculoConverter.toDomain(facturaEntity.getVehiculoEntity()), 
+				facturaEntity.getFechaIngreso());
+		factura.setFechaSalida(facturaEntity.getFechaSalida());
+		factura.setPrecioTotalParqueo(facturaEntity.getPrecioTotalParqueo());
+		return factura;
 	}
 }

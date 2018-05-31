@@ -2,6 +2,7 @@ package co.ceiba.parqueadero.domain;
 
 public class Vehiculo {
 	
+	private int id;
 	private String placa;
 	private boolean estadoParqueo;
 	private int tipo;
@@ -42,6 +43,12 @@ public class Vehiculo {
 		this.cilindraje = cilindraje;
 	}
 
-	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 }

@@ -8,12 +8,12 @@ import org.junit.Test;
 import co.ceiba.parqueadero.domain.Carro;
 import co.ceiba.parqueadero.domain.Moto;
 import co.ceiba.parqueadero.domain.TipoVehiculo;
-import co.ceiba.parqueadero.domain.ValidacionCantidadVehiculos;
-import co.ceiba.parqueadero.domain.ValidacionIngresoVehiculo;
+import co.ceiba.parqueadero.service.ValidacionCantidadVehiculos;
+import co.ceiba.parqueadero.service.ValidacionIngresoVehiculo;
 import co.ceiba.parqueadero.testdatabuilder.CarroTestDataBuilder;
 import co.ceiba.parqueadero.testdatabuilder.MotoTestDataBuilder;
 
-public class ValidacionTests {
+public class ValidacionTest {
 	
 	private static final int VEHICULO_INVALIDO_PARA_PARQUEAR = -1;
 	private ValidacionIngresoVehiculo validacionIngresoVehiculo;

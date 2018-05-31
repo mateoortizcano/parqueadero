@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.domain.Moto;
+import co.ceiba.parqueadero.entity.VehiculoEntity;
+import co.ceiba.parqueadero.exceptions.ParqueoException;
 import co.ceiba.parqueadero.repository.impl.VehiculoRepository;
 import co.ceiba.parqueadero.testdatabuilder.FacturatestDataBuilder;
 import co.ceiba.parqueadero.testdatabuilder.MotoTestDataBuilder;
@@ -24,9 +26,8 @@ public class VehiculoRepositoryTest {
 	private Moto moto;
 	@Autowired
 	VehiculoRepository repository;
-	
 	@Test
-	public void isNoParqueadoTest() {
+	public void isNoParqueadoTest() throws ParqueoException {
 		//Arrange
 		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCB123").withCilindraje(500);		
 		moto = builder.build();
@@ -37,7 +38,7 @@ public class VehiculoRepositoryTest {
 	}
 	
 	@Test
-	public void isParqueadoTest() {
+	public void isParqueadoTest() throws ParqueoException {
 		
 		//Arrange
 		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCBA123").withCilindraje(500);		
@@ -47,8 +48,9 @@ public class VehiculoRepositoryTest {
 		//Assert
 		Assert.assertTrue(message);
 	}
+	
 	@Test
-	public void vehiculoNoRegistradoTest() {
+	public void vehiculoNoRegistradoTest() throws ParqueoException {
 		
 		//Arrange
 		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCB123").withCilindraje(500);		
@@ -60,7 +62,7 @@ public class VehiculoRepositoryTest {
 	}
 	
 	@Test
-	public void agregarVehiculoTest() {
+	public void agregarVehiculoTest() throws ParqueoException {
 		//Arrange
 		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCBB123").withCilindraje(500);		
 		moto = builder.build();
@@ -72,21 +74,20 @@ public class VehiculoRepositoryTest {
 	}
 	
 	@Test
-	public void setParqueadoTest() {
+	public void setParqueadoTest() throws ParqueoException {
 		//Arrange
 		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("SET123").withCilindraje(500);		
 		moto = builder.build();
-		//Act
 		boolean estadoParqueoAnteior = repository.getVehiculo(moto.getPlaca()).isParqueado();
-		repository.setParqueado(moto.getPlaca());
-		boolean estadoParqueo = repository.isParqueado(moto);
-		
+		//Act
+		VehiculoEntity entity = repository.setParqueado(moto.getPlaca());
+		boolean estadoParqueo = entity.isParqueado();
 		//Assert
 		Assert.assertNotEquals(estadoParqueo, estadoParqueoAnteior);
 	}
 	
 	@Test
-	public void parquearTest() {
+	public void parquearTest() throws ParqueoException {
 		//Arrange
 		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("PAR123").withCilindraje(500);		
 		moto = builder.build();

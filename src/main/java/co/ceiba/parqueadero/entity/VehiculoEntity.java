@@ -57,5 +57,13 @@ public class VehiculoEntity implements Serializable{
 	public void setTipoVehiculo(int tipoVehiculo) {
 		this.tipoVehiculo = tipoVehiculo;
 	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 }

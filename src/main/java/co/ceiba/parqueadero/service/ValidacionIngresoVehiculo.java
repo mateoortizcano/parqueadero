@@ -1,6 +1,8 @@
-package co.ceiba.parqueadero.domain;
+package co.ceiba.parqueadero.service;
 
 import java.util.Calendar;
+
+import co.ceiba.parqueadero.domain.Vehiculo;
 
 public class ValidacionIngresoVehiculo implements Validacion {
 	

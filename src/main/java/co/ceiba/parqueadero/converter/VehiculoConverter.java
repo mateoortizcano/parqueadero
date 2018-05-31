@@ -18,6 +18,7 @@ public class VehiculoConverter {
 			vehiculo = new Carro(vehiculoEntity.getPlaca());
 		}
 		vehiculo.setEstadoParqueo(vehiculoEntity.isParqueado());
+		vehiculo.setId(vehiculoEntity.getId());
 		return vehiculo;
 	}
 	
@@ -28,6 +29,7 @@ public class VehiculoConverter {
 		entity.setTipoVehiculo(vehiculo.getTipo());
 		entity.setCilidraje(vehiculo.getCilindraje());
 		entity.setParqueado(vehiculo.isParqueado());
+		entity.setId(vehiculo.getId());
 		return entity;		
 	}
 }

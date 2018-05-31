@@ -24,6 +24,8 @@ public class FacturaEntity {
 	private Calendar fechaIngreso;
 	@Column(name = "fecha_salida")
 	private Calendar fechaSalida;
+	@Column(name = "precio_total_parqueo")
+	private int precioTotalParqueo;
 	
 	public VehiculoEntity getVehiculoEntity() {
 		return vehiculoEntity;
@@ -47,6 +49,14 @@ public class FacturaEntity {
 	
 	public void setFechaSalida(Calendar fechaSalida) {
 		this.fechaSalida = fechaSalida;
+	}
+
+	public int getPrecioTotalParqueo() {
+		return precioTotalParqueo;
+	}
+
+	public void setPrecioTotalParqueo(int precioTotalParqueo) {
+		this.precioTotalParqueo = precioTotalParqueo;
 	}
 	
 }

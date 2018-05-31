@@ -7,20 +7,30 @@ public class Factura {
 	private Vehiculo vehiculo;
 	private Calendar fechaIngreso;
 	private Calendar fechaSalida;
+	private int precioTotalParqueo;
 	
 	public Factura(Vehiculo vehiculo, Calendar fecha) {
 		super();
 		this.vehiculo = vehiculo;
 		this.fechaIngreso = fecha;
 		this.fechaSalida = null;
+		this.precioTotalParqueo = 0;
 	}
 
 	public Vehiculo getVehiculo() {
 		return vehiculo;
 	}
 
+	public void setVehiculo(Vehiculo vehiculo) {
+		this.vehiculo = vehiculo;
+	}
+
 	public Calendar getFechaIngreso() {
 		return fechaIngreso;
+	}
+
+	public void setFechaIngreso(Calendar fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
 	}
 
 	public Calendar getFechaSalida() {
@@ -30,5 +40,14 @@ public class Factura {
 	public void setFechaSalida(Calendar fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
+
+	public int getPrecioTotalParqueo() {
+		return precioTotalParqueo;
+	}
+
+	public void setPrecioTotalParqueo(int precioTotalParqueo) {
+		this.precioTotalParqueo = precioTotalParqueo;
+	}
+
 	
 }
