@@ -18,6 +18,7 @@ public class CalculoTarifaTest {
 	Moto moto;
 	Carro carro;
 	static final int TARIFA_8HORAS_CARRO = 8000;
+	static final int TARIFA_2HORAS_CARRO = 2000;
 	
 	@Test
 	public void calcularHorasParqueadoTest() {
@@ -82,6 +83,18 @@ public class CalculoTarifaTest {
 		int valor = calculoTarifa.calcularValor(8, tarifaHora, tarifaDia);
 		//Assert
 		Assert.assertEquals(TARIFA_8HORAS_CARRO, valor);
+	}
+	
+	@Test
+	public void CalcularValorParqueoDiaMasHorasTest() {
+		//Arrange
+		calculoTarifa = new CalculoTarifaVehiculo();
+		CarroTestDataBuilder dataBuilder = new CarroTestDataBuilder();
+		carro = dataBuilder.build();
+		//Act
+		int valor = calculoTarifa.calcularTarifa(carro, 26);
+		//Assert
+		Assert.assertEquals(Tarifas.VALOR_DIA_CARRO + TARIFA_2HORAS_CARRO, valor);		
 	}
 	
 	@Test

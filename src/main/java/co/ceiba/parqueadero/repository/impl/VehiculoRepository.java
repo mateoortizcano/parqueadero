@@ -57,7 +57,7 @@ public class VehiculoRepository implements IVehiculoRepository{
 			vehiculoEntity = vehiculoConverter.toEntity(getVehiculo(vehiculo.getPlaca()));
 			isParqueado = vehiculoEntity.isParqueado();
 		} catch (ParqueoException e) {
-			//addVehiculo(vehiculo);
+			addVehiculo(vehiculo);
 		}	
 		return isParqueado;
 	}

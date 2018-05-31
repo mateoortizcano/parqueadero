@@ -19,7 +19,7 @@ public class CalculoTarifaVehiculo {
 		if(tipoVehiculo == TipoVehiculo.MOTO) {
 			tarifaHora = Tarifas.VALOR_HORA_MOTO;
 			tarifaDia = Tarifas.VALOR_DIA_MOTO;
-			valorAPagar += calcularCobroPorCilindrajeMoto(vehiculo);
+			valorAPagar = calcularCobroPorCilindrajeMoto(vehiculo);
 			
 		} 
 		else if(tipoVehiculo == TipoVehiculo.CARRO) {
@@ -29,7 +29,7 @@ public class CalculoTarifaVehiculo {
 		
 		int numeroDias = horasParqueado / 24;
 		valorAPagar += numeroDias * tarifaDia;
-		valorAPagar = calcularValor(horasParqueado, tarifaHora, tarifaDia);
+		valorAPagar += calcularValor(horasParqueado, tarifaHora, tarifaDia);
 		
 		return valorAPagar;
 	}
@@ -59,10 +59,9 @@ public class CalculoTarifaVehiculo {
 
 	public int calcularHorasParqueado(Calendar fechaIngreso, Calendar fechaSalida) {
 		
-		final double MILISEGUNDOS_POR_HORA = 1000 * 60 * 60;
-		double milisegundos = fechaSalida.getTime().getTime() - fechaIngreso.getTime().getTime();
+		final double MILISEGUNDOS_POR_HORA = (double) 1000 * 60 * 60;
+		double milisegundos =(double)  fechaSalida.getTime().getTime() - fechaIngreso.getTime().getTime();
 		double horas = milisegundos / MILISEGUNDOS_POR_HORA;
-		int horasParqueado = (int) Math.ceil(horas);
-		return horasParqueado;
+		return (int) Math.ceil(horas);
 	}
 }

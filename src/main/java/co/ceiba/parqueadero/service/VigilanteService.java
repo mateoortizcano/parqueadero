@@ -51,7 +51,7 @@ public class VigilanteService {
 			throw new ParqueoException(Mensajes.NO_HAY_CELDAS_DISPONIBLES);
 	}
 	
-	public Factura sacarVehiculo(String placa, Calendar fecha) throws ParqueoException {
+	public Factura sacarVehiculo(String placa, Calendar fechaSalida) throws ParqueoException {
 		
 		Vehiculo vehiculo = vehiculoRepository.getVehiculo(placa);
 		boolean isParqueado = vehiculoRepository.isParqueado(vehiculo);
@@ -60,7 +60,6 @@ public class VigilanteService {
 		
 		Factura factura = facturaRepository.obtenerFactura(placa);
 		Calendar fechaIngreso = factura.getFechaIngreso();
-		Calendar fechaSalida = Calendar.getInstance();
 		
 		CalculoTarifaVehiculo calculoTarifaVehiculo = new CalculoTarifaVehiculo();
 		int horasParqueado = calculoTarifaVehiculo.calcularHorasParqueado(fechaIngreso, fechaSalida);
