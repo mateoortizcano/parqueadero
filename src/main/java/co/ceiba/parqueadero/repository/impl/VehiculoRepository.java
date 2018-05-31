@@ -26,24 +26,26 @@ public class VehiculoRepository implements IVehiculoRepository{
 	private IVehiculoJPA vehiculoJPA;
 
 	@Override
-	public void parquear(Factura factura) throws ParqueoException {
+	public boolean parquear(Factura factura) throws ParqueoException {
 		FacturaConverter facturaConverter = new FacturaConverter();
 		VehiculoEntity vehiculoEntity = setParqueado(factura.getVehiculo().getPlaca());
 		FacturaEntity facturaEntity = facturaConverter.toEntity(factura);
 		facturaEntity.setVehiculoEntity(vehiculoEntity);
 		facturaRepository.guardarFactura(facturaEntity);
+		return true;
 	}
 
 	@Override
-	public void sacarVehiculo(String placa) throws ParqueoException {
+	public boolean sacarVehiculo(String placa) throws ParqueoException {
 		VehiculoConverter vehiculoConverter = new VehiculoConverter();
-		Vehiculo vehiculo = (getVehiculo(placa));
+		Vehiculo vehiculo = getVehiculo(placa);
 		vehiculo.setEstadoParqueo(false);
 		vehiculoJPA.save(vehiculoConverter.toEntity(vehiculo));
+		return true;
 	}
 
 	@Override
-	public int getNumeroParqueados(int tipoVehiculo) {
+	public int obtenerNumeroParqueados(int tipoVehiculo) {
 		
 		List<VehiculoEntity> vehiculos = vehiculoJPA.findByEstadoParqueoAndTipoVehiculo(true, tipoVehiculo);
 		return vehiculos.size();
@@ -59,12 +61,12 @@ public class VehiculoRepository implements IVehiculoRepository{
 			vehiculoEntity = vehiculoConverter.toEntity(getVehiculo(vehiculo.getPlaca()));
 			isParqueado = vehiculoEntity.isParqueado();
 		} catch (ParqueoException e) {
-			addVehiculo(vehiculo);
+			agregarVehiculo(vehiculo);
 		}	
 		return isParqueado;
 	}
 	
-	public void addVehiculo(Vehiculo vehiculo) {
+	public void agregarVehiculo(Vehiculo vehiculo) {
 		
 		VehiculoConverter converter = new VehiculoConverter();
 		vehiculoJPA.save(converter.toEntity(vehiculo));

@@ -17,13 +17,12 @@ public class VigilanteService {
 	
 	@Autowired
 	private IVehiculoRepository vehiculoRepository;
-	
 	@Autowired
 	private IFacturaRepository facturaRepository;
 		
 	public String ingresarVehiculo(Vehiculo vehiculo, Calendar fecha) throws ParqueoException {
 		
-		int nroVehiculosParqueados = vehiculoRepository.getNumeroParqueados(vehiculo.getTipo());
+		int nroVehiculosParqueados = vehiculoRepository.obtenerNumeroParqueados(vehiculo.getTipo());
 		validarPosibilidadParqueo(vehiculo, fecha, nroVehiculosParqueados);
 		
 		Factura factura = new Factura(vehiculo, fecha);
@@ -42,7 +41,6 @@ public class VigilanteService {
 		
 		ValidacionCantidadVehiculos validacionCantidadVehiculos = new ValidacionCantidadVehiculos(
 				vehiculo.getTipo(), nroVehiculosParqueados);
-		
 		if(isParqueado)
 			throw new ParqueoException(Mensajes.VEHICULO_YA_PARQUEADO);
 		if(!ingresoVehiculo.validar())

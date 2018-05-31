@@ -33,16 +33,18 @@ public class FacturaRepository implements IFacturaRepository {
 	}
 
 	@Override
-	public void guardarFactura(FacturaEntity factura) {
-		facturaJPA.save(factura);
+	public boolean guardarFactura(FacturaEntity factura) {
 		
+		facturaJPA.save(factura);
+		return true;
 	}
 
 	@Override
-	public void actualizar(Factura factura) {
+	public boolean actualizar(Factura factura) {
 		
 		FacturaConverter facturaConverter = new FacturaConverter();
 		facturaJPA.save(facturaConverter.toEntity(factura));
+		return true;
 	}
 
 }

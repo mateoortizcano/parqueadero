@@ -5,7 +5,7 @@ import co.ceiba.parqueadero.entity.FacturaEntity;
 
 public interface IFacturaRepository {
 	
-	void guardarFactura(FacturaEntity factura);
+	boolean guardarFactura(FacturaEntity factura);
 	Factura obtenerFactura(String placa);
-	void actualizar(Factura factura);
+	boolean actualizar(Factura factura);
 }

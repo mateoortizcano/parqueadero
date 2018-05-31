@@ -5,21 +5,22 @@ import java.util.Calendar;
 import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.domain.Vehiculo;
 
-public class FacturatestDataBuilder {
+public class FacturaTestDataBuilder {
 	private Vehiculo vehiculo;
 	private Calendar fechaIngreso;
-	public FacturatestDataBuilder() {
+	
+	public FacturaTestDataBuilder() {
 		super();
 		this.vehiculo = new Vehiculo();
 		this.fechaIngreso = Calendar.getInstance();
 	}
 	
-	public FacturatestDataBuilder withVehiculo(Vehiculo vehiculo) {
+	public FacturaTestDataBuilder withVehiculo(Vehiculo vehiculo) {
 		this.vehiculo = vehiculo;
 		return this;
 	}
 	
-	public FacturatestDataBuilder withFechaIngreso(Calendar fecha) {
+	public FacturaTestDataBuilder withFechaIngreso(Calendar fecha) {
 		this.fechaIngreso = fecha;
 		return this;
 	}

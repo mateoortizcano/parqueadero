@@ -6,10 +6,12 @@ public class MotoTestDataBuilder {
 	
 	private String placa;
 	private int cilindraje;
+	private boolean estadoParqueo;
 	
 	public MotoTestDataBuilder() {
 		this.placa = "DTM435";
 		this.cilindraje = 499;
+		this.estadoParqueo = false;
 	}
 	
 	public MotoTestDataBuilder withPlaca(String placa) {
@@ -22,7 +24,14 @@ public class MotoTestDataBuilder {
 		return this;
 	}
 	
+	public MotoTestDataBuilder withEstadoParqueo(boolean estadoParqueo) {
+		this.estadoParqueo = estadoParqueo;
+		return this;
+	}
+	
 	public Moto build() {
-		return new Moto(this.placa, this.cilindraje);
+		Moto moto = new Moto(this.placa, this.cilindraje);
+		moto.setEstadoParqueo(this.estadoParqueo);
+		return moto;
 	}
 }
