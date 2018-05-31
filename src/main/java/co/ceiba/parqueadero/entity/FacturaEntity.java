@@ -58,5 +58,14 @@ public class FacturaEntity {
 	public void setPrecioTotalParqueo(int precioTotalParqueo) {
 		this.precioTotalParqueo = precioTotalParqueo;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+		
+	}
+
+	public int getId() {
+		return this.id;
+	}
 	
 }

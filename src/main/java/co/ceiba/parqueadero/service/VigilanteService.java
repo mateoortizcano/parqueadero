@@ -57,8 +57,8 @@ public class VigilanteService {
 		boolean isParqueado = vehiculoRepository.isParqueado(vehiculo);
 		if(!isParqueado)
 			throw new ParqueoException(Mensajes.VEHICULO_NO_PARQUEADO);
-		
-		Factura factura = facturaRepository.obtenerFactura(placa);
+		vehiculoRepository.sacarVehiculo(placa);
+		Factura factura = facturaRepository.obtenerFactura(vehiculo.getPlaca());
 		Calendar fechaIngreso = factura.getFechaIngreso();
 		
 		CalculoTarifaVehiculo calculoTarifaVehiculo = new CalculoTarifaVehiculo();

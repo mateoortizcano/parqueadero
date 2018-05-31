@@ -7,7 +7,7 @@ import co.ceiba.parqueadero.exceptions.ParqueoException;
 public interface IVehiculoRepository {
 	
 	void parquear(Factura factura) throws ParqueoException;
-	void sacarVehiculo();
+	void sacarVehiculo(String placa)throws ParqueoException;
 	int getNumeroParqueados(int tipoVehiculo);
 	boolean isParqueado(Vehiculo vehiculo) throws ParqueoException;
 	Vehiculo getVehiculo(String placa) throws ParqueoException; 

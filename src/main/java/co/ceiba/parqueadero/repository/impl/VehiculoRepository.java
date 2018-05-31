@@ -35,9 +35,11 @@ public class VehiculoRepository implements IVehiculoRepository{
 	}
 
 	@Override
-	public void sacarVehiculo() {
-		// TODO Auto-generated method stub
-		
+	public void sacarVehiculo(String placa) throws ParqueoException {
+		VehiculoConverter vehiculoConverter = new VehiculoConverter();
+		Vehiculo vehiculo = (getVehiculo(placa));
+		vehiculo.setEstadoParqueo(false);
+		vehiculoJPA.save(vehiculoConverter.toEntity(vehiculo));
 	}
 
 	@Override

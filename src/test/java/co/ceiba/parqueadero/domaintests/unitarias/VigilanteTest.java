@@ -12,9 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.ceiba.parqueadero.domain.Carro;
+import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.domain.Moto;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
+import co.ceiba.parqueadero.repository.IVehiculoRepository;
 import co.ceiba.parqueadero.service.VigilanteService;
+import co.ceiba.parqueadero.testdatabuilder.CarroTestDataBuilder;
 import co.ceiba.parqueadero.testdatabuilder.MotoTestDataBuilder;
 import co.ceiba.parqueadero.util.Mensajes;
 
@@ -24,9 +28,12 @@ import co.ceiba.parqueadero.util.Mensajes;
 public class VigilanteTest {
 	
 	private Moto moto;
+	private Carro carro;
 	private Calendar fecha;
 	@Autowired
 	VigilanteService  service;
+	@Autowired
+	IVehiculoRepository vehiculoRespository;
 	
 	@Test
 	public void IngresarvehiculoYaParqueado() {
@@ -44,6 +51,21 @@ public class VigilanteTest {
 	}
 	
 	@Test
+	public void IngresarvehiculoNoParqueado() {
+		
+		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCB572").withCilindraje(500);		
+		moto = builder.build();
+		fecha = Calendar.getInstance();
+		
+		try {
+			String mensaje = service.ingresarVehiculo(moto, fecha);
+			Assert.assertEquals(Mensajes.OPERACION_EXITOSA, mensaje);
+		}catch(ParqueoException ex) {
+			fail();
+		}
+	}
+	
+	@Test
 	public void IngresarvehiculoDiaNoPermitido() {
 		
 		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("ABD123").withCilindraje(500);		
@@ -56,6 +78,26 @@ public class VigilanteTest {
 			fail();
 		}catch(ParqueoException ex) {
 			Assert.assertEquals(Mensajes.VEHICULO_NO_PUEDE_INGRESAR, ex.getMessage());
+		}
+	}
+	
+	@Test
+	public void SacarVehiculoTest() {
+		//Arrange
+		CarroTestDataBuilder builder = new CarroTestDataBuilder().withPlaca("DCB562");		
+		carro = builder.build();
+		fecha = Calendar.getInstance();
+		
+		try {
+			//Act
+			service.ingresarVehiculo(carro, fecha);
+			fecha.set(2018, 5, 5);
+			Factura factura = service.sacarVehiculo(carro.getPlaca(), fecha);
+			boolean isParqueado = vehiculoRespository.isParqueado(factura.getVehiculo());
+			//Assert
+			Assert.assertFalse(isParqueado);
+		} catch (ParqueoException e) {
+			fail();
 		}
 	}
 	/**

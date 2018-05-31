@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 public class Factura {
 	
+	private int id;
 	private Vehiculo vehiculo;
 	private Calendar fechaIngreso;
 	private Calendar fechaSalida;
@@ -11,6 +12,7 @@ public class Factura {
 	
 	public Factura(Vehiculo vehiculo, Calendar fecha) {
 		super();
+		this.id = 0;
 		this.vehiculo = vehiculo;
 		this.fechaIngreso = fecha;
 		this.fechaSalida = null;
@@ -49,5 +51,13 @@ public class Factura {
 		this.precioTotalParqueo = precioTotalParqueo;
 	}
 
-	
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+		
+	}
+
 }
