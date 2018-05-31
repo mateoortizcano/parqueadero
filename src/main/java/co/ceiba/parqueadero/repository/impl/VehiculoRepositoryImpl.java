@@ -12,18 +12,18 @@ import co.ceiba.parqueadero.domain.Vehiculo;
 import co.ceiba.parqueadero.entity.FacturaEntity;
 import co.ceiba.parqueadero.entity.VehiculoEntity;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
-import co.ceiba.parqueadero.jpa.IVehiculoJPA;
-import co.ceiba.parqueadero.repository.IFacturaRepository;
-import co.ceiba.parqueadero.repository.IVehiculoRepository;
+import co.ceiba.parqueadero.jpa.VehiculoJPA;
+import co.ceiba.parqueadero.repository.FacturaRepository;
+import co.ceiba.parqueadero.repository.VehiculoRepository;
 import co.ceiba.parqueadero.util.Mensajes;
 
 @Service
-public class VehiculoRepository implements IVehiculoRepository{
+public class VehiculoRepositoryImpl implements VehiculoRepository{
 	
 	@Autowired
-	private IFacturaRepository facturaRepository;
+	private FacturaRepository facturaRepository;
 	@Autowired
-	private IVehiculoJPA vehiculoJPA;
+	private VehiculoJPA vehiculoJPA;
 
 	@Override
 	public boolean parquear(Factura factura) throws ParqueoException {

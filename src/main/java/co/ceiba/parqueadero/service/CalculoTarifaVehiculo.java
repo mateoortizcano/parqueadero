@@ -29,12 +29,12 @@ public class CalculoTarifaVehiculo {
 		
 		int numeroDias = horasParqueado / 24;
 		valorAPagar += numeroDias * tarifaDia;
-		valorAPagar += calcularValor(horasParqueado, tarifaHora, tarifaDia);
+		valorAPagar += calcularTarifaHoras(horasParqueado, tarifaHora, tarifaDia);
 		
 		return valorAPagar;
 	}
 
-	public int calcularValor(int horasParqueado, int tarifaHora, int tarifaDia) {
+	public int calcularTarifaHoras(int horasParqueado, int tarifaHora, int tarifaDia) {
 		
 		int valor = 0;
 		int numeroHoras = horasParqueado % 24;

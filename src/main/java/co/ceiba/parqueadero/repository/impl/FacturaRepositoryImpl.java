@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import co.ceiba.parqueadero.converter.FacturaConverter;
 import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.entity.FacturaEntity;
-import co.ceiba.parqueadero.jpa.IFacturaJPA;
-import co.ceiba.parqueadero.repository.IFacturaRepository;
+import co.ceiba.parqueadero.jpa.FacturaJPA;
+import co.ceiba.parqueadero.repository.FacturaRepository;
 
 @Service
-public class FacturaRepository implements IFacturaRepository {
+public class FacturaRepositoryImpl implements FacturaRepository {
 	
 	@Autowired
-	private IFacturaJPA facturaJPA;
+	private FacturaJPA facturaJPA;
 
 	@Override
 	public Factura obtenerFactura(String placa) {

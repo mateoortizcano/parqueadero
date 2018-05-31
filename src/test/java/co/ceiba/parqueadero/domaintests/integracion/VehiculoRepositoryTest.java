@@ -26,9 +26,9 @@ import co.ceiba.parqueadero.domain.Moto;
 import co.ceiba.parqueadero.domain.Vehiculo;
 import co.ceiba.parqueadero.entity.VehiculoEntity;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
-import co.ceiba.parqueadero.jpa.IVehiculoJPA;
-import co.ceiba.parqueadero.repository.impl.FacturaRepository;
-import co.ceiba.parqueadero.repository.impl.VehiculoRepository;
+import co.ceiba.parqueadero.jpa.VehiculoJPA;
+import co.ceiba.parqueadero.repository.impl.FacturaRepositoryImpl;
+import co.ceiba.parqueadero.repository.impl.VehiculoRepositoryImpl;
 import co.ceiba.parqueadero.testdatabuilder.CarroTestDataBuilder;
 import co.ceiba.parqueadero.testdatabuilder.FacturaTestDataBuilder;
 import co.ceiba.parqueadero.testdatabuilder.MotoTestDataBuilder;
@@ -43,11 +43,11 @@ public class VehiculoRepositoryTest {
 	private Carro carro;
 	private VehiculoConverter vehiculoConverter;
 	@InjectMocks
-	private VehiculoRepository repository;
+	private VehiculoRepositoryImpl repository;
 	@Mock
-	private FacturaRepository facturaRepository;
+	private FacturaRepositoryImpl facturaRepository;
 	@Mock
-	private IVehiculoJPA vehiculoJPA;
+	private VehiculoJPA vehiculoJPA;
 	
 	@Before
 	public void initMocks() {

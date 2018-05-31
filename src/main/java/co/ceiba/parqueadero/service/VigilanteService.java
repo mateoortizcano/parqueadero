@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.domain.Vehiculo;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
-import co.ceiba.parqueadero.repository.IFacturaRepository;
-import co.ceiba.parqueadero.repository.IVehiculoRepository;
+import co.ceiba.parqueadero.repository.FacturaRepository;
+import co.ceiba.parqueadero.repository.VehiculoRepository;
 import co.ceiba.parqueadero.util.Mensajes;
 
 @Service
 public class VigilanteService {
 	
 	@Autowired
-	private IVehiculoRepository vehiculoRepository;
+	private VehiculoRepository vehiculoRepository;
 	@Autowired
-	private IFacturaRepository facturaRepository;
+	private FacturaRepository facturaRepository;
 		
 	public String ingresarVehiculo(Vehiculo vehiculo, Calendar fecha) throws ParqueoException {
 		

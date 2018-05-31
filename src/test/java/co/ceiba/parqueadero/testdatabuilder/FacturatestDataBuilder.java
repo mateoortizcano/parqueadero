@@ -6,6 +6,7 @@ import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.domain.Vehiculo;
 
 public class FacturaTestDataBuilder {
+	
 	private Vehiculo vehiculo;
 	private Calendar fechaIngreso;
 	

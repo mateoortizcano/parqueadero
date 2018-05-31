@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import co.ceiba.parqueadero.entity.FacturaEntity;
 
 @Repository
-public interface IFacturaJPA extends JpaRepository<FacturaEntity, Serializable>{
+public interface FacturaJPA extends JpaRepository<FacturaEntity, Serializable>{
 	
 	List<FacturaEntity> findByFechaSalidaIsNull();
 }

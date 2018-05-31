@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import co.ceiba.parqueadero.entity.VehiculoEntity;
 
 @Repository
-public interface IVehiculoJPA extends JpaRepository<VehiculoEntity, Serializable>{
+public interface VehiculoJPA extends JpaRepository<VehiculoEntity, Serializable>{
 	
 	List<VehiculoEntity> findByEstadoParqueoAndTipoVehiculo(boolean estadoParqueo, int tipoVehiculo);
 	

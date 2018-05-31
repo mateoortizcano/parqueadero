@@ -20,8 +20,8 @@ import co.ceiba.parqueadero.converter.FacturaConverter;
 import co.ceiba.parqueadero.domain.Carro;
 import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.entity.FacturaEntity;
-import co.ceiba.parqueadero.jpa.IFacturaJPA;
-import co.ceiba.parqueadero.repository.impl.FacturaRepository;
+import co.ceiba.parqueadero.jpa.FacturaJPA;
+import co.ceiba.parqueadero.repository.impl.FacturaRepositoryImpl;
 import co.ceiba.parqueadero.testdatabuilder.CarroTestDataBuilder;
 import co.ceiba.parqueadero.testdatabuilder.FacturaTestDataBuilder;
 
@@ -30,9 +30,9 @@ import co.ceiba.parqueadero.testdatabuilder.FacturaTestDataBuilder;
 @Transactional
 public class FacturaRepositoryTest {
 	@InjectMocks
-	private FacturaRepository facturaRepository;
+	private FacturaRepositoryImpl facturaRepository;
 	@Mock
-	private IFacturaJPA facturaJPA;
+	private FacturaJPA facturaJPA;
 	private static final String PLACA = "DCB123";
 	
 	@Before

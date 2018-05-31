@@ -20,8 +20,8 @@ import co.ceiba.parqueadero.domain.Carro;
 import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.domain.Moto;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
-import co.ceiba.parqueadero.repository.IFacturaRepository;
-import co.ceiba.parqueadero.repository.IVehiculoRepository;
+import co.ceiba.parqueadero.repository.FacturaRepository;
+import co.ceiba.parqueadero.repository.VehiculoRepository;
 import co.ceiba.parqueadero.service.VigilanteService;
 import co.ceiba.parqueadero.testdatabuilder.CarroTestDataBuilder;
 import co.ceiba.parqueadero.testdatabuilder.FacturaTestDataBuilder;
@@ -41,9 +41,9 @@ public class VigilanteTest {
 	@InjectMocks
 	private VigilanteService  service;
 	@Mock
-	private IVehiculoRepository vehiculoRepository;
+	private VehiculoRepository vehiculoRepository;
 	@Mock
-	private IFacturaRepository facturaRepository;
+	private FacturaRepository facturaRepository;
 	
 	@Before
 	public void initMocks() {
