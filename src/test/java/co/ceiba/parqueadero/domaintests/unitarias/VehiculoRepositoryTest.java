@@ -55,7 +55,7 @@ public class VehiculoRepositoryTest {
 		vehiculoConverter = new VehiculoConverter();
 		Mockito.when(vehiculoJPA.findByPlaca(PLACA)).thenReturn(vehiculoConverter.toEntity(carro));
 		//Act
-		Vehiculo vehiculoAgregado = repository.getVehiculo(PLACA);
+		Vehiculo vehiculoAgregado = repository.obtenerVehiculo(PLACA);
 		//Assert
 		Assert.assertEquals(PLACA, vehiculoAgregado.getPlaca());
 	}
@@ -109,7 +109,7 @@ public class VehiculoRepositoryTest {
 		moto = builder.build();
 		vehiculoConverter = new VehiculoConverter();
 		Mockito.when(vehiculoJPA.findByPlaca(PLACA)).thenReturn(vehiculoConverter.toEntity(moto));
-		boolean estadoParqueoAnteior = repository.getVehiculo(moto.getPlaca()).isParqueado();
+		boolean estadoParqueoAnteior = repository.obtenerVehiculo(moto.getPlaca()).isParqueado();
 		moto.setEstadoParqueo(false);
 		Mockito.when(vehiculoJPA.save(vehiculoConverter.toEntity(moto))).thenReturn(vehiculoConverter.toEntity(moto));
 		//Act

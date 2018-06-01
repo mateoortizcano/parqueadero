@@ -14,4 +14,6 @@ public interface VehiculoJPA extends JpaRepository<VehiculoEntity, Serializable>
 	List<VehiculoEntity> findByEstadoParqueoAndTipoVehiculo(boolean estadoParqueo, int tipoVehiculo);
 	
 	VehiculoEntity findByPlaca(String placa);
+	
+	List<VehiculoEntity> findByEstadoParqueo(boolean estadoParqueo);
 }

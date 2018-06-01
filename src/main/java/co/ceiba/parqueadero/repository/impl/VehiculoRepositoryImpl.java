@@ -1,6 +1,7 @@
 package co.ceiba.parqueadero.repository.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class VehiculoRepositoryImpl implements VehiculoRepository{
 	@Override
 	public boolean sacarVehiculo(String placa) throws ParqueoException {
 		VehiculoConverter vehiculoConverter = new VehiculoConverter();
-		Vehiculo vehiculo = getVehiculo(placa);
+		Vehiculo vehiculo = obtenerVehiculo(placa);
 		vehiculo.setEstadoParqueo(false);
 		vehiculoJPA.save(vehiculoConverter.toEntity(vehiculo));
 		return true;
@@ -58,7 +59,7 @@ public class VehiculoRepositoryImpl implements VehiculoRepository{
 		boolean isParqueado = false;
 		VehiculoEntity vehiculoEntity;
 		try {
-			vehiculoEntity = vehiculoConverter.toEntity(getVehiculo(vehiculo.getPlaca()));
+			vehiculoEntity = vehiculoConverter.toEntity(obtenerVehiculo(vehiculo.getPlaca()));
 			isParqueado = vehiculoEntity.isParqueado();
 		} catch (ParqueoException e) {
 			agregarVehiculo(vehiculo);
@@ -76,7 +77,7 @@ public class VehiculoRepositoryImpl implements VehiculoRepository{
 	public VehiculoEntity setParqueado(String placa) throws ParqueoException {
 		
 		VehiculoConverter vehiculoConverter = new VehiculoConverter();
-		VehiculoEntity vehiculoEntity = vehiculoConverter.toEntity(getVehiculo(placa));
+		VehiculoEntity vehiculoEntity = vehiculoConverter.toEntity(obtenerVehiculo(placa));
 		boolean estadoParqueo = vehiculoEntity.isParqueado();
 		vehiculoEntity.setParqueado(!estadoParqueo);
 		vehiculoJPA.save(vehiculoEntity);
@@ -84,7 +85,7 @@ public class VehiculoRepositoryImpl implements VehiculoRepository{
 	}
 	
 	@Override
-	public Vehiculo getVehiculo(String placa) throws ParqueoException {
+	public Vehiculo obtenerVehiculo(String placa) throws ParqueoException {
 		
 		VehiculoConverter vehiculoConverter = new VehiculoConverter();
 		VehiculoEntity vehiculoEntity = vehiculoJPA.findByPlaca(placa);
@@ -94,6 +95,15 @@ public class VehiculoRepositoryImpl implements VehiculoRepository{
 		else
 			vehiculo = vehiculoConverter.toDomain(vehiculoEntity);
 		return vehiculo;
+	}
+
+	@Override
+	public List<Vehiculo> obtenerVehiculosParqueados() {
+		VehiculoConverter vehiculoConverter = new VehiculoConverter();
+		List<VehiculoEntity> vehiculosEntity = vehiculoJPA.findByEstadoParqueo(true);
+		List<Vehiculo> vehiculos = vehiculosEntity.stream().map(Vehiculo -> vehiculoConverter.toDomain(Vehiculo))
+				.collect(Collectors.toList());
+		return vehiculos;
 	}
 	
 	

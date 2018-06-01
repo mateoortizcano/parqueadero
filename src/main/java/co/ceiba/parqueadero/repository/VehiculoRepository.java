@@ -1,5 +1,7 @@
 package co.ceiba.parqueadero.repository;
 
+import java.util.List;
+
 import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.domain.Vehiculo;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
@@ -10,6 +12,7 @@ public interface VehiculoRepository {
 	boolean sacarVehiculo(String placa)throws ParqueoException;
 	int obtenerNumeroParqueados(int tipoVehiculo);
 	boolean isParqueado(Vehiculo vehiculo) throws ParqueoException;
-	Vehiculo getVehiculo(String placa) throws ParqueoException; 
+	Vehiculo obtenerVehiculo(String placa) throws ParqueoException;
+	List<Vehiculo> obtenerVehiculosParqueados(); 
 
 }

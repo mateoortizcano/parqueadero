@@ -119,7 +119,7 @@ public class VigilanteTest {
 		carro = builder.build();
 		fecha = Calendar.getInstance();
 		fecha.set(2018, 5, 5);
-		Mockito.when(vehiculoRepository.getVehiculo(PLACA)).thenReturn(carro);
+		Mockito.when(vehiculoRepository.obtenerVehiculo(PLACA)).thenReturn(carro);
 		Mockito.when(vehiculoRepository.isParqueado(carro)).thenReturn(true);
 		FacturaTestDataBuilder facturaTestDataBuilder = new FacturaTestDataBuilder();
 		Factura factura = facturaTestDataBuilder.build();
