@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="co.ceiba.parqueadero.domaintests.unitarias.ValidacionTests" tests="8" skipped="0" failures="0" errors="0" timestamp="2018-05-29T20:54:13" hostname="MATEO-ORTIZ" time="0.018">
+  <properties/>
+  <testcase name="esInvalidoParquear" classname="co.ceiba.parqueadero.domaintests.unitarias.ValidacionTests" time="0.016"/>
+  <testcase name="validarCeldasMotoSuficienteTest" classname="co.ceiba.parqueadero.domaintests.unitarias.ValidacionTests" time="0.0"/>
+  <testcase name="validarCeldasInsuficientesTest" classname="co.ceiba.parqueadero.domaintests.unitarias.ValidacionTests" time="0.0"/>
+  <testcase name="parquearAutoSinRestriccion" classname="co.ceiba.parqueadero.domaintests.unitarias.ValidacionTests" time="0.0"/>
+  <testcase name="vehiculoNoParqueableTest" classname="co.ceiba.parqueadero.domaintests.unitarias.ValidacionTests" time="0.0"/>
+  <testcase name="validarCeldasCarroSuficienteTest" classname="co.ceiba.parqueadero.domaintests.unitarias.ValidacionTests" time="0.0"/>
+  <testcase name="esValidoParquearLunes" classname="co.ceiba.parqueadero.domaintests.unitarias.ValidacionTests" time="0.001"/>
+  <testcase name="esValidoParquearDomingo" classname="co.ceiba.parqueadero.domaintests.unitarias.ValidacionTests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
