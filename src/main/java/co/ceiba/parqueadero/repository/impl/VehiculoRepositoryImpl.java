@@ -101,9 +101,8 @@ public class VehiculoRepositoryImpl implements VehiculoRepository{
 	public List<Vehiculo> obtenerVehiculosParqueados() {
 		VehiculoConverter vehiculoConverter = new VehiculoConverter();
 		List<VehiculoEntity> vehiculosEntity = vehiculoJPA.findByEstadoParqueo(true);
-		List<Vehiculo> vehiculos = vehiculosEntity.stream().map(Vehiculo -> vehiculoConverter.toDomain(Vehiculo))
+		return vehiculosEntity.stream().map(Vehiculo -> vehiculoConverter.toDomain(Vehiculo))
 				.collect(Collectors.toList());
-		return vehiculos;
 	}
 	
 	

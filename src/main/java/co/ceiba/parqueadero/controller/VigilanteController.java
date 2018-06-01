@@ -35,8 +35,7 @@ public class VigilanteController {
 	@RequestMapping(value = "/sacarVehiculo", method = RequestMethod.GET)
 	public Factura sacarVehiculo(@RequestParam(value = "placa") String placa) throws ParqueoException {
 		Calendar fechaSalida = Calendar.getInstance();
-		Factura factura = vigilanteService.sacarVehiculo(placa, fechaSalida);
-		return factura;
+		return vigilanteService.sacarVehiculo(placa, fechaSalida);
 	}
 	
 	@RequestMapping(value = "/obtenerParqueados", method = RequestMethod.GET) 

@@ -18,7 +18,7 @@ public class VehiculoService {
 	
 	public List<Vehiculo> obtenerVehiculosParqueados() throws ParqueoException{
 		List<Vehiculo> vehiculos = vehiculoRepository.obtenerVehiculosParqueados();
-		if(vehiculos.size() == 0) {
+		if(vehiculos.isEmpty()) {
 			throw new ParqueoException(Mensajes.PARQUEADERO_VACIO);
 		}
 		return vehiculos;
