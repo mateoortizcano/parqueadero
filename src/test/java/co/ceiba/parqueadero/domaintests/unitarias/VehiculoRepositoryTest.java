@@ -1,9 +1,8 @@
-package co.ceiba.parqueadero.domaintests.integracion;
+package co.ceiba.parqueadero.domaintests.unitarias;
 
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Assert;
@@ -18,19 +17,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.ceiba.parqueadero.converter.FacturaConverter;
 import co.ceiba.parqueadero.converter.VehiculoConverter;
 import co.ceiba.parqueadero.domain.Carro;
-import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.domain.Moto;
 import co.ceiba.parqueadero.domain.Vehiculo;
 import co.ceiba.parqueadero.entity.VehiculoEntity;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
 import co.ceiba.parqueadero.jpa.VehiculoJPA;
-import co.ceiba.parqueadero.repository.impl.FacturaRepositoryImpl;
 import co.ceiba.parqueadero.repository.impl.VehiculoRepositoryImpl;
 import co.ceiba.parqueadero.testdatabuilder.CarroTestDataBuilder;
-import co.ceiba.parqueadero.testdatabuilder.FacturaTestDataBuilder;
 import co.ceiba.parqueadero.testdatabuilder.MotoTestDataBuilder;
 
 @SpringBootTest
@@ -44,8 +39,6 @@ public class VehiculoRepositoryTest {
 	private VehiculoConverter vehiculoConverter;
 	@InjectMocks
 	private VehiculoRepositoryImpl repository;
-	@Mock
-	private FacturaRepositoryImpl facturaRepository;
 	@Mock
 	private VehiculoJPA vehiculoJPA;
 	
@@ -108,18 +101,6 @@ public class VehiculoRepositoryTest {
 			fail();
 		}
 	}
-	/**
-	@Test
-	public void vehiculoNoRegistradoTest() throws ParqueoException {
-		
-		//Arrange
-		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCB123").withCilindraje(500);		
-		moto = builder.build();
-		//Act
-		boolean message = repository.isParqueado(moto);
-		//Assert
-		Assert.assertFalse(message);
-	}**/
 	
 	@Test
 	public void setParqueadoTest() throws ParqueoException {
@@ -136,26 +117,6 @@ public class VehiculoRepositoryTest {
 		boolean estadoParqueo = entity.isParqueado();
 		//Assert
 		Assert.assertNotEquals(estadoParqueo, estadoParqueoAnteior);
-	}
-	
-	@Test
-	public void parquearTest() throws ParqueoException {
-		//Arrange
-		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca(PLACA);		
-		moto = builder.build();
-		vehiculoConverter = new VehiculoConverter();
-		Calendar fecha = Calendar.getInstance();
-		FacturaTestDataBuilder facturaBuilder = new FacturaTestDataBuilder().withFechaIngreso(fecha).withVehiculo(moto);
-		FacturaConverter facturaConverter = new FacturaConverter();
-		Factura factura = facturaBuilder.build();
-		Mockito.when(vehiculoJPA.save(vehiculoConverter.toEntity(moto))).thenReturn(vehiculoConverter.toEntity(moto));
-		Mockito.when(vehiculoJPA.findByPlaca(PLACA)).thenReturn(vehiculoConverter.toEntity(moto));
-		Mockito.when(facturaRepository.guardarFactura(facturaConverter.toEntity(factura))).thenReturn(true);
-		//Act
-		repository.parquear(factura);
-		boolean message = repository.isParqueado(moto);
-		//Assert
-		Assert.assertNotEquals(message, !message);
 	}
 	
 	@Test

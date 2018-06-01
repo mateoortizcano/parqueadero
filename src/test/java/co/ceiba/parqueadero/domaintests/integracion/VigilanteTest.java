@@ -126,7 +126,6 @@ public class VigilanteTest {
 		Mockito.when(facturaRepository.actualizar(factura)).thenReturn(true);
 		Mockito.when(facturaRepository.obtenerFactura(PLACA)).thenReturn(factura);
 		
-		
 		try {
 			//Act
 			service.sacarVehiculo(carro.getPlaca(), fecha);
@@ -134,18 +133,4 @@ public class VigilanteTest {
 			fail();
 		}
 	}
-	/**
-	@Test
-	public void numeroCeldasInsuficientes() {
-		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca("DCB321").withCilindraje(500);		
-		moto = builder.build();
-		fecha = Calendar.getInstance();
-		
-		try {
-			service.ingresarVehiculo(moto, fecha);
-			fail();
-		}catch(ParqueoException ex) {
-			Assert.assertEquals(Mensajes.NO_HAY_CELDAS_DISPONIBLES, ex.getMessage());
-		}
-	}**/
 }
