@@ -14,5 +14,5 @@ public abstract class Mensajes {
 	public static final String VEHICULO_NO_PARQUEADO = "El vehiculo no se encuentra parqueado.";
 	public static final String VEHICULO_NO_AUTORIZADO = "El tipo de vehiculo no es valido.";
 	public static final String VEHICULO_NO_REGISTRADO = "El vehiculo no se encuentra";
-	public static final String PARQUEADERO_VACIO = "En el parqueadero no se encuentra ningún vehiculo parqueado.";
+	public static final String PARQUEADERO_VACIO = "En el parqueadero no se encuentran vehiculos.";
 }

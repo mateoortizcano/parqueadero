@@ -12,17 +12,25 @@ import java.io.Serializable;
 @Table(name = "vehiculo")
 public class VehiculoEntity implements Serializable{
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name =  "id")
 	private int id;
+	
 	@Column(name =  "placa")
 	private String placa;
+	
 	@Column(name =  "cilindraje")
 	private int cilidraje;
+	
 	@Column(name =  "estadoParqueo")
 	private boolean estadoParqueo;
+	
 	@Column(name =  "tipoVehiculo")
 	private int tipoVehiculo;
 

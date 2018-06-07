@@ -27,7 +27,10 @@ public class FacturaTestDataBuilder {
 	}
 	
 	public Factura build() {
-		return new Factura(vehiculo, fechaIngreso);
+		Factura factura = new Factura();
+		factura.setVehiculo(vehiculo);
+		factura.setFechaIngreso(fechaIngreso);
+		return factura;
 	}
 
 }

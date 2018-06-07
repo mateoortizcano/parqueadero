@@ -25,7 +25,9 @@ public class VigilanteService {
 		int nroVehiculosParqueados = vehiculoRepository.obtenerNumeroParqueados(vehiculo.getTipo());
 		validarPosibilidadParqueo(vehiculo, fecha, nroVehiculosParqueados);
 		
-		Factura factura = new Factura(vehiculo, fecha);
+		Factura factura = new Factura();
+		factura.setVehiculo(vehiculo);
+		factura.setFechaIngreso(fecha);
 		
 		vehiculoRepository.parquear(factura);
 		

@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,9 +16,9 @@ import co.ceiba.parqueadero.domain.Vehiculo;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
 import co.ceiba.parqueadero.service.VehiculoService;
 import co.ceiba.parqueadero.service.VigilanteService;
-import co.ceiba.parqueadero.util.Mensajes;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class VigilanteController {
 	
 	@Autowired
@@ -26,20 +27,22 @@ public class VigilanteController {
 	private VehiculoService vehiculoService;
 	
 	@RequestMapping(value = "/parquearVehiculo", method = RequestMethod.POST)
-	public boolean parquearVehiculo(@RequestBody Vehiculo vehiculo) throws ParqueoException {
+	public void parquearVehiculo(@RequestBody Vehiculo vehiculo) throws ParqueoException {
+		
 		Calendar fechaIngreso = Calendar.getInstance();
-		String resultadoProceso = vigilanteService.ingresarVehiculo(vehiculo, fechaIngreso);
-		return resultadoProceso == Mensajes.OPERACION_EXITOSA ? true : false ;
+		vigilanteService.ingresarVehiculo(vehiculo, fechaIngreso);
 	}
 	
 	@RequestMapping(value = "/sacarVehiculo", method = RequestMethod.GET)
 	public Factura sacarVehiculo(@RequestParam(value = "placa") String placa) throws ParqueoException {
+		
 		Calendar fechaSalida = Calendar.getInstance();
 		return vigilanteService.sacarVehiculo(placa, fechaSalida);
 	}
 	
 	@RequestMapping(value = "/obtenerParqueados", method = RequestMethod.GET) 
-	public List<Vehiculo> obtenerParqueados() throws ParqueoException{
+	public List<Factura> obtenerParqueados() throws ParqueoException{
+		
 		return vehiculoService.obtenerVehiculosParqueados();
 	}
 }

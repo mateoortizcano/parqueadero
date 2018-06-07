@@ -11,12 +11,10 @@ public class VehiculoConverter {
 	public Vehiculo toDomain(VehiculoEntity vehiculoEntity) {
 		
 		Vehiculo vehiculo = new Vehiculo();
-		if (vehiculoEntity.getTipoVehiculo() == TipoVehiculo.MOTO) {
+		if (vehiculoEntity.getTipoVehiculo() == TipoVehiculo.MOTO) 
 			vehiculo = new Moto(vehiculoEntity.getPlaca(), vehiculoEntity.getCilidraje());
-		}
-		else if (vehiculoEntity.getTipoVehiculo() == TipoVehiculo.CARRO) {
+		else if (vehiculoEntity.getTipoVehiculo() == TipoVehiculo.CARRO)
 			vehiculo = new Carro(vehiculoEntity.getPlaca());
-		}
 		vehiculo.setEstadoParqueo(vehiculoEntity.isParqueado());
 		vehiculo.setId(vehiculoEntity.getId());
 		return vehiculo;

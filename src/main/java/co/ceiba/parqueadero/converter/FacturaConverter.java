@@ -20,8 +20,9 @@ public class FacturaConverter {
 	public Factura toDomain(FacturaEntity facturaEntity) {
 		
 		VehiculoConverter vehiculoConverter = new VehiculoConverter();
-		Factura factura = new Factura(vehiculoConverter.toDomain(facturaEntity.getVehiculoEntity()), 
-				facturaEntity.getFechaIngreso());
+		Factura factura = new Factura();
+		factura.setVehiculo(vehiculoConverter.toDomain(facturaEntity.getVehiculoEntity()));
+		factura.setFechaIngreso(facturaEntity.getFechaIngreso());
 		factura.setId(facturaEntity.getId());
 		factura.setFechaSalida(facturaEntity.getFechaSalida());
 		factura.setPrecioTotalParqueo(facturaEntity.getPrecioTotalParqueo());

@@ -1,6 +1,7 @@
 package co.ceiba.parqueadero.repository.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,14 @@ public class FacturaRepositoryImpl implements FacturaRepository {
 		FacturaConverter facturaConverter = new FacturaConverter();
 		facturaJPA.save(facturaConverter.toEntity(factura));
 		return true;
+	}
+
+	@Override
+	public List<Factura> obtenerVehiculosParqueados() {
+		FacturaConverter facturaConverter = new FacturaConverter();
+		List<FacturaEntity> facturasEntity = facturaJPA.findByFechaSalidaIsNull();
+		return facturasEntity.stream().map(Factura -> facturaConverter.toDomain(Factura))
+				.collect(Collectors.toList());
 	}
 
 }

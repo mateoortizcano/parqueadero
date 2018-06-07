@@ -1,7 +1,6 @@
 package co.ceiba.parqueadero.repository.impl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -96,15 +95,5 @@ public class VehiculoRepositoryImpl implements VehiculoRepository{
 			vehiculo = vehiculoConverter.toDomain(vehiculoEntity);
 		return vehiculo;
 	}
-
-	@Override
-	public List<Vehiculo> obtenerVehiculosParqueados() {
-		VehiculoConverter vehiculoConverter = new VehiculoConverter();
-		List<VehiculoEntity> vehiculosEntity = vehiculoJPA.findByEstadoParqueo(true);
-		return vehiculosEntity.stream().map(Vehiculo -> vehiculoConverter.toDomain(Vehiculo))
-				.collect(Collectors.toList());
-	}
-	
-	
 
 }

@@ -15,10 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.ceiba.parqueadero.entity.VehiculoEntity;
+import co.ceiba.parqueadero.entity.FacturaEntity;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
-import co.ceiba.parqueadero.jpa.VehiculoJPA;
-import co.ceiba.parqueadero.repository.VehiculoRepository;
+import co.ceiba.parqueadero.jpa.FacturaJPA;
+import co.ceiba.parqueadero.repository.FacturaRepository;
 import co.ceiba.parqueadero.service.VehiculoService;
 import co.ceiba.parqueadero.util.Mensajes;
 
@@ -30,15 +30,15 @@ public class VehiculoServiceTest {
 	@InjectMocks
 	private VehiculoService vehiculoService;
 	@Mock
-	private VehiculoJPA vehiculoJPA;
+	private FacturaJPA facturaJPA;
 	@Mock
-	private VehiculoRepository vehiculoRepository;
+	private FacturaRepository facturaRepository;
 
 	@Test
 	public void obtenerparqueadosIgualCero() {
 		//Arrange
-		List<VehiculoEntity> vehiculoEntities = new ArrayList<>();
-		Mockito.when(vehiculoJPA.findByEstadoParqueo(true)).thenReturn(vehiculoEntities);
+		List<FacturaEntity> facturaEntities = new ArrayList<>();
+		Mockito.when(facturaJPA.findByFechaSalidaIsNull()).thenReturn(facturaEntities);
 		//Act
 		try {
 			vehiculoService.obtenerVehiculosParqueados();

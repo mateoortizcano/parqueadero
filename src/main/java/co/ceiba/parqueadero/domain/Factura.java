@@ -10,11 +10,9 @@ public class Factura {
 	private Calendar fechaSalida;
 	private int precioTotalParqueo;
 	
-	public Factura(Vehiculo vehiculo, Calendar fecha) {
+	public Factura() {
 		super();
 		this.id = 0;
-		this.vehiculo = vehiculo;
-		this.fechaIngreso = fecha;
 		this.fechaSalida = null;
 		this.precioTotalParqueo = 0;
 	}
