@@ -1,4 +1,4 @@
-package co.ceiba.parqueadero.domaintests.integracion;
+package co.ceiba.parqueadero.domaintests.unitarias;
 
 import static org.junit.Assert.fail;
 

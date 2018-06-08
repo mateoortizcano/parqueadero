@@ -26,22 +26,20 @@ public class VehiculoRepositoryImpl implements VehiculoRepository{
 	private VehiculoJPA vehiculoJPA;
 
 	@Override
-	public boolean parquear(Factura factura) throws ParqueoException {
+	public void parquear(Factura factura) throws ParqueoException {
 		FacturaConverter facturaConverter = new FacturaConverter();
 		VehiculoEntity vehiculoEntity = setParqueado(factura.getVehiculo().getPlaca());
 		FacturaEntity facturaEntity = facturaConverter.toEntity(factura);
 		facturaEntity.setVehiculoEntity(vehiculoEntity);
 		facturaRepository.guardarFactura(facturaEntity);
-		return true;
 	}
 
 	@Override
-	public boolean sacarVehiculo(String placa) throws ParqueoException {
+	public void sacarVehiculo(String placa) throws ParqueoException {
 		VehiculoConverter vehiculoConverter = new VehiculoConverter();
 		Vehiculo vehiculo = obtenerVehiculo(placa);
 		vehiculo.setEstadoParqueo(false);
 		vehiculoJPA.save(vehiculoConverter.toEntity(vehiculo));
-		return true;
 	}
 
 	@Override

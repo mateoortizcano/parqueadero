@@ -20,7 +20,7 @@ public class VigilanteService {
 	@Autowired
 	private FacturaRepository facturaRepository;
 		
-	public String ingresarVehiculo(Vehiculo vehiculo, Calendar fecha) throws ParqueoException {
+	public void ingresarVehiculo(Vehiculo vehiculo, Calendar fecha) throws ParqueoException {
 		
 		int nroVehiculosParqueados = vehiculoRepository.obtenerNumeroParqueados(vehiculo.getTipo());
 		validarPosibilidadParqueo(vehiculo, fecha, nroVehiculosParqueados);
@@ -31,7 +31,6 @@ public class VigilanteService {
 		
 		vehiculoRepository.parquear(factura);
 		
-		return Mensajes.OPERACION_EXITOSA;
 	}
 
 	private void validarPosibilidadParqueo(Vehiculo vehiculo, Calendar fecha,

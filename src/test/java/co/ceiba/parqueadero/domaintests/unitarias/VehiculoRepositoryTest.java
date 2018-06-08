@@ -17,15 +17,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.ceiba.parqueadero.converter.FacturaConverter;
 import co.ceiba.parqueadero.converter.VehiculoConverter;
 import co.ceiba.parqueadero.domain.Carro;
+import co.ceiba.parqueadero.domain.Factura;
 import co.ceiba.parqueadero.domain.Moto;
 import co.ceiba.parqueadero.domain.Vehiculo;
+import co.ceiba.parqueadero.entity.FacturaEntity;
 import co.ceiba.parqueadero.entity.VehiculoEntity;
 import co.ceiba.parqueadero.exceptions.ParqueoException;
+import co.ceiba.parqueadero.jpa.FacturaJPA;
 import co.ceiba.parqueadero.jpa.VehiculoJPA;
+import co.ceiba.parqueadero.repository.impl.FacturaRepositoryImpl;
 import co.ceiba.parqueadero.repository.impl.VehiculoRepositoryImpl;
 import co.ceiba.parqueadero.testdatabuilder.CarroTestDataBuilder;
+import co.ceiba.parqueadero.testdatabuilder.FacturaTestDataBuilder;
 import co.ceiba.parqueadero.testdatabuilder.MotoTestDataBuilder;
 
 @SpringBootTest
@@ -39,12 +45,33 @@ public class VehiculoRepositoryTest {
 	private VehiculoConverter vehiculoConverter;
 	@InjectMocks
 	private VehiculoRepositoryImpl repository;
+	@InjectMocks
+	private FacturaRepositoryImpl facturaRepositoryImpl;
 	@Mock
 	private VehiculoJPA vehiculoJPA;
+	@Mock
+	private FacturaJPA facturaJPA;
 	
 	@Before
 	public void initMocks() {
 		MockitoAnnotations.initMocks(this);
+	}
+	
+	@Test
+	public void obtenerparqueados() {
+		//Arrange
+		FacturaConverter facturaConverter = new FacturaConverter();
+		List<FacturaEntity> facturas = new ArrayList<>();
+		FacturaTestDataBuilder facturaBuilder = new FacturaTestDataBuilder();
+		Factura factura = facturaBuilder.build();
+		facturas.add(facturaConverter.toEntity(factura));
+		facturas.add(facturaConverter.toEntity(factura));
+		
+		Mockito.when(facturaJPA.findByFechaSalidaIsNull()).thenReturn(facturas);
+		//Act
+		List<Factura> vehiculosRetornados = facturaRepositoryImpl.obtenerVehiculosParqueados();
+		//Assert
+		Assert.assertEquals(facturas.size(), vehiculosRetornados.size());
 	}
 	
 	@Test

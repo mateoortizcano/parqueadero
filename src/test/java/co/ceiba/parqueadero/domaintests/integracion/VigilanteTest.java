@@ -3,6 +3,8 @@ package co.ceiba.parqueadero.domaintests.integracion;
 import java.util.Calendar;
 
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,23 +51,25 @@ public class VigilanteTest {
 	public void initMocks() {
 		MockitoAnnotations.initMocks(this);
 	}
-	
+
 	@Test
 	public void IngresarvehiculoYaParqueado() throws ParqueoException {
-		
+		//Arrange
 		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca(PLACA);		
 		moto = builder.build();
 		Mockito.when(vehiculoRepository.obtenerNumeroParqueados(moto.getTipo())).thenReturn(4);
 		Mockito.when(vehiculoRepository.isParqueado(moto)).thenReturn(true);
 		FacturaTestDataBuilder facturaTestDataBuilder = new FacturaTestDataBuilder();
 		Factura factura = facturaTestDataBuilder.build();
-		Mockito.when(vehiculoRepository.parquear(factura)).thenReturn(true);
+		doNothing().when(vehiculoRepository).parquear(factura);
 		fecha = Calendar.getInstance();
 		
 		try {
+			//Act
 			service.ingresarVehiculo(moto, fecha);
 			fail();
 		}catch(ParqueoException ex) {
+			//Assert
 			Assert.assertEquals(Mensajes.VEHICULO_YA_PARQUEADO, ex.getMessage());
 		}
 	}
@@ -77,14 +81,14 @@ public class VigilanteTest {
 		moto = builder.build();
 		Mockito.when(vehiculoRepository.obtenerNumeroParqueados(moto.getTipo())).thenReturn(4);
 		Mockito.when(vehiculoRepository.isParqueado(moto)).thenReturn(false);
-		FacturaTestDataBuilder facturaTestDataBuilder = new FacturaTestDataBuilder();
-		Factura factura = facturaTestDataBuilder.build();
-		Mockito.when(vehiculoRepository.parquear(factura)).thenReturn(true);
+		doNothing().when(vehiculoRepository).parquear(Mockito.any());
 		fecha = Calendar.getInstance();
 		
 		try {
-			String mensaje = service.ingresarVehiculo(moto, fecha);
-			Assert.assertEquals(Mensajes.OPERACION_EXITOSA, mensaje);
+			//Act
+			service.ingresarVehiculo(moto, fecha);
+			//Assert
+			verify(vehiculoRepository).parquear(Mockito.any());
 		}catch(ParqueoException ex) {
 			fail();
 		}
@@ -93,21 +97,23 @@ public class VigilanteTest {
 	
 	@Test
 	public void IngresarvehiculoDiaNoPermitido() throws ParqueoException {
-		
+		//Arrange
 		MotoTestDataBuilder builder = new MotoTestDataBuilder().withPlaca(PLACA_INICIADA_A);		
 		moto = builder.build();
 		Mockito.when(vehiculoRepository.obtenerNumeroParqueados(moto.getTipo())).thenReturn(4);
 		Mockito.when(vehiculoRepository.isParqueado(moto)).thenReturn(false);
 		FacturaTestDataBuilder facturaTestDataBuilder = new FacturaTestDataBuilder();
 		Factura factura = facturaTestDataBuilder.build();
-		Mockito.when(vehiculoRepository.parquear(factura)).thenReturn(true);
+		doNothing().when(vehiculoRepository).parquear(factura);
 		fecha = Calendar.getInstance();
 		fecha.set(2018, 4, 30);//miercoles
 		
 		try {
+			//Act
 			service.ingresarVehiculo(moto, fecha);
 			fail();
 		}catch(ParqueoException ex) {
+			//Assert
 			Assert.assertEquals(Mensajes.VEHICULO_NO_PUEDE_INGRESAR, ex.getMessage());
 		}
 	}
@@ -128,7 +134,9 @@ public class VigilanteTest {
 		
 		try {
 			//Act
-			service.sacarVehiculo(carro.getPlaca(), fecha);
+			Factura factura2 = service.sacarVehiculo(carro.getPlaca(), fecha);
+			//Assert
+			Assert.assertEquals(factura, factura2);
 		} catch (ParqueoException e) {
 			fail();
 		}
